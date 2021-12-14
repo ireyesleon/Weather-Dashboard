@@ -1,35 +1,31 @@
 header {
     text-align: center;
-    font-size: 4vw;
+    font-size: 6vh;
     color: white;
     background: rgb(2,0,36);
     background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
 }
 
-.col-3 {
-    /* border: solid 2px;
-    color: red; */
-}
-
-.col-9 {
-    /* border: solid 2px;
-    color: red; */
+body {
+    background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(135,135,142,1) 51%, rgba(17,27,29,1) 100%);
 }
 
 #search-city {
     border-bottom: solid 1px;
     color: black;
-    padding-bottom: 15px;
-    margin-right: 20px;
 }
 
-#search-city p {
-    font-size: 2vw;
+#search-button {
+    margin-top: 10px;
+}
+
+#white {
+    color: white;
 }
 
 #city-history {
     padding-bottom: 15px;
-    /* margin-right: 20px; */
 }
 
 #display-city {
@@ -37,15 +33,19 @@ header {
     color: black;
 }
 
-#city-details div {
+#city-details {
     padding-bottom: 7px;
     padding-top: 7px;
-    /* font-size: 2vw; */
+    font-size: 2vh;
 }
 
-#city-name {
-    font-size: 25px;
+#city-name, .weather-container p {
+    font-size: 3vh;
     font-weight: bolder;
+}
+
+.weather-container img {
+    width: 50%;
 }
 
 #days-forecast {
@@ -54,7 +54,7 @@ header {
 }
 
 h4 {
-    font-size: 1vw;
+    font-size: 2vh;
     color: white;
 }
 

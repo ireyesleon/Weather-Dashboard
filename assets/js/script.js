@@ -1,5 +1,4 @@
 var APIKey = "75d7da5e343a08d2c004e2b86c1b912a";
-var cityInputEl = document.querySelector("#search-city");
 var cityDetails = document.querySelector("#city-details");
 var dayOne = document.querySelector("#day1");
 var dayTwo = document.querySelector("#day2");
@@ -7,14 +6,22 @@ var dayThree = document.querySelector("#day3");
 var dayFour = document.querySelector("#day4");
 var dayFive = document.querySelector("#day5");
 var weatherContainerEl = document.querySelector(".weather-container")
-var fetchButton = document.querySelector(".search-button");
+var fetchButton = document.getElementById("search-button");
 
-var currentDate = moment();
+var cityEl = document.createElement("div");
+var tempEl = document.createElement("div");
+var windEl = document.createElement("div");
+var humidityEl = document.createElement("div");
 
+var cityHistory = document.getElementById("city-history");
+var cityStorage = [];
+
+var currentDate = moment().format("LL");
 
 //Function to fetch weather info
-function getCityWeather() {
-    var queryUrl = "http://api.openweathermap.org/data/2.5/weather?q=atlanta&appid=75d7da5e343a08d2c004e2b86c1b912a&units=metric&exclude=hourly,daily";
+function getCityWeather(city) {
+    cityDetails.innerHTML = "";
+    var queryUrl = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKey}&units=metric&exclude=hourly,daily`;
     fetch(queryUrl)
       .then(function (response) {
         console.log(response.status);
@@ -25,32 +32,36 @@ function getCityWeather() {
       })
       .then(function (data) {
         console.log(data);
-        console.log(data.name);
-        console.log(data.main.temp);
-        console.log(data.wind.speed);
-        console.log(data.main.humidity);
-        // console.log(data.main.humidity);
-          var cityEl = document.createElement("div")
-          cityEl.textContent = data.name + currentDate;
+          var icon = document.createElement("img");
+          var iconJSON = (data.weather[0].icon);
+          var iconURL = (`https://openweathermap.org/img/wn/${iconJSON}@2x.png`);
+          icon.src = iconURL;
+          cityEl.textContent = data.name + ", " + currentDate;
           cityEl.setAttribute ("id", "city-name");
           cityDetails.append(cityEl);
-          var tempEl = document.createElement("div")
+          cityDetails.append(icon);
           tempEl.textContent = "Temp: " + data.main.temp + "°C";
+          tempEl.setAttribute ("id", "white");
           cityDetails.append(tempEl);
-          var windEl = document.createElement("div")
           windEl.textContent = "Wind: " + data.wind.speed + " MPH";
+          windEl.setAttribute ("id", "white");
           cityDetails.append(windEl);
-          var humidityEl = document.createElement("div")
           humidityEl.textContent = "Humidity: " + data.main.humidity + " %";
+          humidityEl.setAttribute ("id", "white");
           cityDetails.append(humidityEl);
       });
   }
   
-getCityWeather();
 
 //Function to fetch weather forecast
-function getCityForecast() {
-  var queryUrl = "http://api.openweathermap.org/data/2.5/forecast?q=atlanta&appid=75d7da5e343a08d2c004e2b86c1b912a&units=metric&cnt=33";
+function getCityForecast(city) {
+  dayOne.innerHTML = "";
+  dayTwo.innerHTML = "";
+  dayThree.innerHTML = "";
+  dayFour.innerHTML = "";
+  dayFive.innerHTML = "";
+  //Add the other days here
+  var queryUrl = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${APIKey}&units=metric&cnt=33`;
   fetch(queryUrl)
     .then(function (response) {
       console.log(response.status);
@@ -63,8 +74,13 @@ function getCityForecast() {
       console.log(data);
       // Day 1
         var dateEl1 = document.createElement("h4")
-        dateEl1.textContent = data.list[0].dt_txt;
+        dateEl1.textContent = data.list[0].dt_txt.split(" ")[0];
         dayOne.append(dateEl1);
+        var icon = document.createElement("img");
+        var iconJSON = (data.list[0].weather[0].icon);
+        var iconURL = (`https://openweathermap.org/img/wn/${iconJSON}@2x.png`);
+        icon.src = iconURL;
+        dayOne.append(icon);
         var tempEl1 = document.createElement("h4")
         tempEl1.textContent = "Temp: " + data.list[0].main.temp + "°C";
         dayOne.append(tempEl1);
@@ -77,8 +93,13 @@ function getCityForecast() {
 
       // Day 2
         var dateEl2 = document.createElement("h4")
-        dateEl2.textContent = data.list[8].dt_txt;
+        dateEl2.textContent = data.list[8].dt_txt.split(" ")[0];
         dayTwo.append(dateEl2);
+        var icon = document.createElement("img");
+        var iconJSON = (data.list[8].weather[0].icon);
+        var iconURL = (`https://openweathermap.org/img/wn/${iconJSON}@2x.png`);
+        icon.src = iconURL;
+        dayTwo.append(icon);
         var tempEl2 = document.createElement("h4")
         tempEl2.textContent = "Temp: " + data.list[8].main.temp + "°C";
         dayTwo.append(tempEl2);
@@ -91,8 +112,13 @@ function getCityForecast() {
 
       // Day 3
         var dateEl3 = document.createElement("h4")
-        dateEl3.textContent = data.list[16].dt_txt;
+        dateEl3.textContent = data.list[16].dt_txt.split(" ")[0];
         dayThree.append(dateEl3);
+        var icon = document.createElement("img");
+        var iconJSON = (data.list[16].weather[0].icon);
+        var iconURL = (`https://openweathermap.org/img/wn/${iconJSON}@2x.png`);
+        icon.src = iconURL;
+        dayThree.append(icon);
         var tempEl3 = document.createElement("h4")
         tempEl3.textContent = "Temp: " + data.list[16].main.temp + "°C";
         dayThree.append(tempEl3);
@@ -105,8 +131,13 @@ function getCityForecast() {
 
       // Day 4
         var dateEl4 = document.createElement("h4")
-        dateEl4.textContent = data.list[24].dt_txt;
+        dateEl4.textContent = data.list[24].dt_txt.split(" ")[0];
         dayFour.append(dateEl4);
+        var icon = document.createElement("img");
+        var iconJSON = (data.list[24].weather[0].icon);
+        var iconURL = (`https://openweathermap.org/img/wn/${iconJSON}@2x.png`);
+        icon.src = iconURL;
+        dayFour.append(icon);
         var tempEl4 = document.createElement("h4")
         tempEl4.textContent = "Temp: " + data.list[24].main.temp + "°C";
         dayFour.append(tempEl4);
@@ -119,8 +150,13 @@ function getCityForecast() {
 
       // Day 5
         var dateEl5 = document.createElement("h4")
-        dateEl5.textContent = data.list[32].dt_txt;
+        dateEl5.textContent = data.list[32].dt_txt.split(" ")[0];
         dayFive.append(dateEl5);
+        var icon = document.createElement("img");
+        var iconJSON = (data.list[32].weather[0].icon);
+        var iconURL = (`https://openweathermap.org/img/wn/${iconJSON}@2x.png`);
+        icon.src = iconURL;
+        dayFive.append(icon);
         var tempEl5 = document.createElement("h4")
         tempEl5.textContent = "Temp: " + data.list[32].main.temp + "°C";
         dayFive.append(tempEl5);
@@ -133,55 +169,19 @@ function getCityForecast() {
     });
 }
 
-getCityForecast();
-
-// fetchButton.addEventListener("submit", getCityWeather);
-
-
-//Function to display weather info
-// function displayCityWeather() {
-//   var tempEl = document.createElement('div');
-//   tempEl = 
+// Function to store cities,
+// function storeCities(city) {
+//   if ()
 // }
 
+//function to see iif theres somethiing in local storage
 
+//fuction to get data from local storage and display it
 
-// Function to confirm the city
-// var citySubmitHandler = function (event) {
-//     event.preventDefault();
-  
-//     var citySearch = cityInputEl.value.trim();
-  
-//     if (citySearch) {
-//       getCityWeather(city);
-  
-//       weatherContainerEl.textContent = '';
-//       cityInputEl.value = '';
-//     } else {
-//       alert('Please enter a City Name');
-//     }
-//   };
+fetchButton.addEventListener("click", function() {
+  var cityInputEl = document.querySelector("#search-city").value;
 
+  getCityWeather(cityInputEl);
+  getCityForecast(cityInputEl);
+});
 
-// var getCityWeather = function (city) {
-//     var queryUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=75d7da5e343a08d2c004e2b86c1b912a";
-  
-//     fetch(queryUrl)
-//       .then(function (response) {
-//         if (response.ok) {
-//           console.log(response);
-//           response.json().then(function (data) {
-//             console.log(data);
-//             displayRepos(data, city);
-//           });
-//         } else {
-//           alert('Error: ' + response.statusText);
-//         }
-//       })
-//       .catch(function (error) {
-//         alert('Unable to connect to OpenWeather App');
-//       });
-//   };
-
-// // // Event listener for submit button
-// fetchButton.addEventListener("click", citySubmitHandler);
