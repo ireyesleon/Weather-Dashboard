@@ -1,0 +1,64 @@
+header {
+    text-align: center;
+    font-size: 4vw;
+    color: white;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+}
+
+.col-3 {
+    /* border: solid 2px;
+    color: red; */
+}
+
+.col-9 {
+    /* border: solid 2px;
+    color: red; */
+}
+
+#search-city {
+    border-bottom: solid 1px;
+    color: black;
+    padding-bottom: 15px;
+    margin-right: 20px;
+}
+
+#search-city p {
+    font-size: 2vw;
+}
+
+#city-history {
+    padding-bottom: 15px;
+    /* margin-right: 20px; */
+}
+
+#display-city {
+    border: solid 1px;
+    color: black;
+}
+
+#city-details div {
+    padding-bottom: 7px;
+    padding-top: 7px;
+    /* font-size: 2vw; */
+}
+
+#city-name {
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+#days-forecast {
+    border: solid 1px;
+    color: black;
+}
+
+h4 {
+    font-size: 1vw;
+    color: white;
+}
+
+#day1, #day2, #day3, #day4, #day5 {
+    background-color: rgb(53, 103, 141);
+    margin: 5px;
+}
